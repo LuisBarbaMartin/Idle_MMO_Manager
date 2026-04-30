@@ -27,4 +27,6 @@ Must enter in this order, (name, base strength, base intelligence, base agility,
 ### Guild Class
     guild_name = (
         name = "guild name"
+        members= []
+        inventory=[]
     )

@@ -1,6 +1,7 @@
+import json
 
 class character:
-    def __init__(self, name, base_strength, base_intelligence, base_agility, base_wisdom, char_ID=None, level=1):
+    def __init__(self, char_ID, name, base_strength, base_intelligence, base_agility, base_wisdom, level=1):
         self.char_ID = char_ID
         self.name = name
         self.level = level
@@ -48,9 +49,6 @@ class character:
         # def get_equipment_mana_bonus(self):
     # def show_stats(self):
     
-    def level_up(self):
-        self.level += 1
-        
     def calculate_max_health(self):
         return self.base_health + (self.get_strength() * 2) + (self.level * 5) + self.get_equipment_health_bonus()
 
@@ -132,7 +130,20 @@ class character:
     
         
 class Equipment:
-    def __init__(self, name, slot, rarity, item_ID=0, hands=0, strength_bonus=0, intelligence_bonus=0, agility_bonus=0, wisdom_bonus=0, health_bonus=0, mana_bonus=0, flavor_text=""):
+    def __init__(self, 
+                 item_ID, 
+                 name, 
+                 slot, 
+                 rarity, 
+                 hands=0, 
+                 strength_bonus=0, 
+                 intelligence_bonus=0, 
+                 agility_bonus=0, 
+                 wisdom_bonus=0, 
+                 health_bonus=0, 
+                 mana_bonus=0, 
+                 flavor_text=""):
+        
         self.item_ID = item_ID
         self.name = name
         self.slot = slot
@@ -147,6 +158,20 @@ class Equipment:
         self.mana_bonus = mana_bonus
         
         self.flavor_text = flavor_text
+        
+    @classmethod
+    def from_json(cls, data):
+        return cls(
+            name=data["name"],
+            slot=data["slot"],
+            rarity=data["rarity"],
+            strength_bonus=data.get("strength_bonus", 0),
+            intelligence_bonus=data.get("intelligence_bonus", 0),
+            agility_bonus=data.get("agility_bonus", 0),
+            wisdom_bonus=data.get("wisdom_bonus", 0),
+            health_bonus=data.get("health_bonus", 0),
+            mana_bonus=data.get("mana_bonus", 0)
+        )
     
     #TODO - implement equip restrictions based on hands (one-handed vs two-handed weapons)    
     # def check_hands(self):

@@ -1,5 +1,5 @@
-import main.classes as classes
-import main.functions as functions
+import classes as classes
+import functions as functions
 
 # test characters
 
@@ -47,7 +47,7 @@ chestplate = classes.Equipment(
 test_guild = classes.Guild(
     name="Test Guild",
     members=[fighter],
-    inventory={"items": [iron_sword, iron_helm, ring_of_vigor, chestplate]}
+    inventory={"gold": 500, "items": [iron_sword, iron_helm, ring_of_vigor, chestplate]}
 )
 
 functions.equip_item(fighter, test_guild, iron_sword)
@@ -71,3 +71,5 @@ fighter.mana = fighter.max_mana
 
 fighter.show_stats()
 print()
+print(f"Guild Inventory: {test_guild.inventory['items']}")
+print(f"Guild Gold: {test_guild.inventory['gold']}")
