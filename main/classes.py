@@ -52,10 +52,10 @@ class character:
         self.level += 1
         
     def calculate_max_health(self):
-        return self.base_health + (self.get_strength() * 5) + (self.level * 5) + self.get_equipment_health_bonus()
+        return self.base_health + (self.get_strength() * 2) + (self.level * 5) + self.get_equipment_health_bonus()
 
     def calculate_max_mana(self):
-        return self.base_mana + (self.get_intelligence() * 5) + (self.level * 5) + self.get_equipment_mana_bonus()
+        return self.base_mana + (self.get_intelligence() * 2) + (self.level * 5) + self.get_equipment_mana_bonus()
 
     #Secondary stat methods
     def get_strength(self):
@@ -159,11 +159,8 @@ class Equipment:
                 #ignore, not a weapon
 
 class Guild:
-    def __init__(self, name):
+    def __init__(self, name, members=None, inventory=None):
         self.name = name
-        self.members = []
-        inventory = {
-            "gold": 0,
-            "items": []
-        }
+        self.members = members if members is not None else []
+        self.inventory = inventory if inventory is not None else {"gold": 0, "items": []}
         self.inventory = inventory

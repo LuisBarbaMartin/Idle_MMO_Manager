@@ -1,6 +1,7 @@
 # Idle_MMO_Manager
 
-## Character Class
+## Classes
+### Character Class
     charactername = classes.character(
         name="Test_Char"
         base_strength=12,
@@ -13,7 +14,7 @@
 
 Must enter in this order, (name, base strength, base intelligence, base agility, base wisdom)
 
-## Equipment Class
+### Equipment Class
     equipment_name = classes.Equipment(
         name="Iron Sword",
         slot="weapon1",
@@ -21,4 +22,9 @@ Must enter in this order, (name, base strength, base intelligence, base agility,
         item_ID=0001
         hands="1",
         strength_bonus=4
+    )
+
+### Guild Class
+    guild_name = (
+        name = "guild name"
     )

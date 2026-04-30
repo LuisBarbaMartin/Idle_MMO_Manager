@@ -3,6 +3,7 @@
 import time
 from main.functions import global_tick
 
+#TODO - Tick Rate will need to be remade once the event_handler() is implemented. This is just a placeholder for testing purposes.
 TICK_RATE = 1.0  # seconds per tick
 
 player = {
