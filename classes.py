@@ -1,9 +1,14 @@
-import json
-
 class character:
-    def __init__(self, char_ID, name, base_strength, base_intelligence, base_agility, base_wisdom, level=1):
-        self.char_ID = char_ID
+    def __init__(self,
+                 name,
+                 job,
+                 base_strength,
+                 base_intelligence,
+                 base_agility,
+                 base_wisdom,
+                 level=1):
         self.name = name
+        self.job = job
         self.level = level
         self.experience = 0
 
@@ -20,11 +25,9 @@ class character:
             "weapon1": None,
             "weapon2": None,
             "helm": None,
-            "shoulder": None,
             "chest": None,
             "legs": None,
             "boots": None,
-            "ring": None,
             "amulet": None,
             "ring1": None,
             "ring2": None,
@@ -34,6 +37,18 @@ class character:
         self.health = self.max_health
         self.max_mana = self.calculate_max_mana()
         self.mana = self.max_mana
+
+    @classmethod
+    def from_json(cls, data):
+        return cls(
+            name=data["name"],
+            job=data["job"],
+            base_strength=data["base_strength"],
+            base_intelligence=data["base_intelligence"],
+            base_agility=data["base_agility"],
+            base_wisdom=data["base_wisdom"],
+            level=data.get("level", 1)
+        )
         
         
     #Core stat methods
@@ -113,6 +128,7 @@ class character:
     
     def show_stats(self):
         print(f"Name: {self.name}")
+        print(f"Job: {self.job}")
         print(f"Level: {self.level}")
         print(f"STR: {self.get_strength()} ({self.base_strength} base)")
         print(f"INT: {self.get_intelligence()} ({self.base_intelligence} base)")
@@ -128,13 +144,29 @@ class character:
             else:
                 print(f"  {slot}: {item.name}")
     
+    def get_stats(self):
+        return {
+            "name": self.name,
+            "job": self.job,
+            "level": self.level,
+            "health": self.health,
+            "max_health": self.max_health,
+            "mana": self.mana,
+            "max_mana": self.max_mana,
+            "strength": self.get_strength(),
+            "intelligence": self.get_intelligence(),
+            "agility": self.get_agility(),
+            "wisdom": self.get_wisdom(),
+        }
+
         
 class Equipment:
     def __init__(self, 
-                 item_ID, 
                  name, 
                  slot, 
                  rarity, 
+                 level_requirement=1,
+                 job_restriction=None,
                  hands=0, 
                  strength_bonus=0, 
                  intelligence_bonus=0, 
@@ -144,11 +176,12 @@ class Equipment:
                  mana_bonus=0, 
                  flavor_text=""):
         
-        self.item_ID = item_ID
         self.name = name
         self.slot = slot
         self.rarity = rarity
         self.hands = hands # determines if equipment is one-handed or two-handed, affects how many weapons can be equipped
+        self.level_requirement = level_requirement
+        self.job_restriction = job_restriction
 
         self.strength_bonus = strength_bonus
         self.intelligence_bonus = intelligence_bonus
@@ -165,12 +198,15 @@ class Equipment:
             name=data["name"],
             slot=data["slot"],
             rarity=data["rarity"],
+            hands=data.get("hands", 0),
             strength_bonus=data.get("strength_bonus", 0),
             intelligence_bonus=data.get("intelligence_bonus", 0),
             agility_bonus=data.get("agility_bonus", 0),
             wisdom_bonus=data.get("wisdom_bonus", 0),
             health_bonus=data.get("health_bonus", 0),
-            mana_bonus=data.get("mana_bonus", 0)
+            mana_bonus=data.get("mana_bonus", 0),
+            flavor_text=data.get("flavor_text", ""),
+            job_restriction=data.get("job_restriction", None)
         )
     
     #TODO - implement equip restrictions based on hands (one-handed vs two-handed weapons)    
@@ -188,4 +224,3 @@ class Guild:
         self.name = name
         self.members = members if members is not None else []
         self.inventory = inventory if inventory is not None else {"gold": 0, "items": []}
-        self.inventory = inventory

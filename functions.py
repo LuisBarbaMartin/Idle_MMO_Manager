@@ -1,3 +1,34 @@
+import json
+
+from classes import Equipment, character
+
+
+def load_json_file(file_path):
+    with open(file_path, "r") as file:
+        return json.load(file)
+
+
+def load_items(file_path="data/items.JSON"):
+    items_data = load_json_file(file_path)
+    return {
+        item_key: Equipment.from_json(item_data)
+        for item_key, item_data in items_data.items()
+    }
+
+
+def load_characters(file_path="data/characters.JSON"):
+    characters_data = load_json_file(file_path)
+    return {
+        character_key: character.from_json(character_data)
+        for character_key, character_data in characters_data.items()
+    }
+
+
+def load_quests(file_path="data/quests.JSON"):
+    return load_json_file(file_path)
+
+
+#TODO - Tick Rate will need to be remade once the event_handler() is implemented. This is just a placeholder for testing purposes.
 def global_tick(player):
     """
     Runs once per game tick.
@@ -47,3 +78,14 @@ def equip_item(character, guild, item):
 
     character.max_mana = character.calculate_max_mana()
     character.mana = min(character.mana, character.max_mana)
+
+def rest(character):
+    """
+    Restores health and mana to full.
+    Can only be used outside of combat.
+    """
+
+    # Example implementation, adjust as needed
+    character.health = character.max_health
+    character.mana = character.max_mana
+    print(f"{character.name} has rested and restored health and mana to full.")

@@ -1,10 +1,11 @@
 {
     "item_0000_blank": {
-        "item_ID:": 0,
         "name": "Ghost Item",
         "slot": "helm",
         "rarity": "mythical",
         "hands": 0,
+        "level_requirement": 1,
+        "job_restriction": "none",
         "strength_bonus": 100,
         "intelligence_bonus": 100, 
         "agility_bonus": 100, 
@@ -15,11 +16,12 @@
     },
 
    "item_0001_iron_sword": {
-        "item_ID:": 1,
         "name": "Iron Sword",
         "slot": "weapon1",
         "rarity": "common",
         "hands": 1,
+        "level_requirement": 1,
+        "job_restriction": "none",
         "strength_bonus": 4,
         "intelligence_bonus": 0, 
         "agility_bonus": 0, 

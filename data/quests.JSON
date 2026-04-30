@@ -1,0 +1,28 @@
+{
+  "quest_0001_locked_cellar": {
+    "name": "The Locked Cellar",
+    "checks": [
+      {
+        "description": "Break open the swollen cellar door.",
+        "stat": "strength",
+        "difficulty": 15,
+        "success_text": "The door cracks open under the blow.",
+        "failure_text": "The door holds firm."
+      },
+      {
+        "description": "Keep steady in the dark below.",
+        "stat": "wisdom",
+        "difficulty": 8,
+        "success_text": "The shadows feel less threatening.",
+        "failure_text": "Panic turns every sound into a threat."
+      }
+    ],
+    "rewards": {
+      "gold": 100,
+      "items": [
+        "item_0001_iron_sword"
+      ],
+      "experience": 25
+    }
+  }
+}

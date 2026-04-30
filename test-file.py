@@ -1,75 +1,49 @@
-import classes as classes
-import functions as functions
+import classes
+import event_runner
+import functions
 
-# test characters
 
-fighter = classes.character(
-    name="Brakka",
-    base_strength=12,
-    base_intelligence=3,
-    base_agility=6,
-    base_wisdom=4
-)
+characters = functions.load_characters()
+items = functions.load_items()
+quests = functions.load_quests()
 
-# test equipment
+fighter = characters["fighter_0001"]
+iron_sword = items["item_0001_iron_sword"]
+ghost_item = items["item_0000_blank"]
 
-iron_sword = classes.Equipment(
-    name="Iron Sword",
-    slot="weapon1",
-    rarity="common",
-    strength_bonus=4
-)
-
-iron_helm = classes.Equipment(
-    name="Iron Helm",
-    slot="helm",
-    rarity="uncommon",
-    strength_bonus=1,
-    health_bonus=25
-)
-
-ring_of_vigor = classes.Equipment(
-    name="Ring of Vigor",
-    slot="ring1",
-    rarity="uncommon",
-    health_bonus=35
-)
-
-chestplate = classes.Equipment(
-    name="Soldier's Chestplate",
-    slot="chest",
-    rarity="uncommon",
-    strength_bonus=2,
-    health_bonus=50
-)
-
-# test guild obj
 test_guild = classes.Guild(
     name="Test Guild",
     members=[fighter],
-    inventory={"gold": 500, "items": [iron_sword, iron_helm, ring_of_vigor, chestplate]}
+    inventory={
+        "gold": 500,
+        "items": [iron_sword, ghost_item]
+    }
 )
 
 functions.equip_item(fighter, test_guild, iron_sword)
-functions.equip_item(fighter, test_guild, iron_helm)
-functions.equip_item(fighter, test_guild, ring_of_vigor)
-functions.equip_item(fighter, test_guild, chestplate)
-# manually equip items for testing
+functions.equip_item(fighter, test_guild, ghost_item)
 
-#fighter.equipment["weapon1"] = iron_sword
-#fighter.equipment["helm"] = iron_helm
-#fighter.equipment["chest"] = chestplate
-#fighter.equipment["ring1"] = ring_of_vigor
-
-# recalculate stats after changing equipment
-
-fighter.max_health = fighter.calculate_max_health()
-fighter.health = fighter.max_health
-fighter.max_mana = fighter.calculate_max_mana()
-fighter.mana = fighter.max_mana
-
-
+functions.rest(fighter)
 fighter.show_stats()
 print()
-print(f"Guild Inventory: {test_guild.inventory['items']}")
+print("Guild Inventory:")
+for item in test_guild.inventory["items"]:
+    print(f"  {item.name}")
+
 print(f"Guild Gold: {test_guild.inventory['gold']}")
+
+print()
+quest_result = event_runner.event_runner(
+    fighter.get_stats(),
+    quests["quest_0001_locked_cellar"]
+)
+event_runner.print_event_result(quest_result)
+event_runner.apply_quest_rewards(quest_result, fighter, test_guild, items)
+
+print()
+print("After Quest Rewards:")
+print(f"Guild Gold: {test_guild.inventory['gold']}")
+print(f"Fighter XP: {fighter.experience}")
+print("Guild Inventory:")
+for item in test_guild.inventory["items"]:
+    print(f"  {item.name}")
