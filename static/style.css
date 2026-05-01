@@ -160,19 +160,22 @@ h2 {
   font: inherit;
 }
 
-.member-switcher {
+.member-switcher,
+.member-page-switcher {
   display: grid;
   grid-template-columns: 34px minmax(120px, 1fr) 34px;
   align-items: center;
   gap: 8px;
 }
 
-.member-switcher strong {
+.member-switcher strong,
+.member-page-switcher strong {
   text-align: center;
   font-size: 14px;
 }
 
-.member-switcher button {
+.member-switcher button,
+.member-page-switcher button {
   width: 34px;
   height: 34px;
   border: 1px solid var(--line);
@@ -183,9 +186,19 @@ h2 {
   cursor: pointer;
 }
 
-.member-switcher button:disabled {
+.member-switcher button:disabled,
+.member-page-switcher button:disabled {
   color: var(--muted);
   cursor: not-allowed;
+}
+
+.member-page-switcher {
+  grid-template-columns: 30px minmax(48px, 1fr) 30px;
+}
+
+.member-page-switcher button {
+  width: 30px;
+  height: 30px;
 }
 
 .stack {
@@ -220,12 +233,19 @@ h2 {
 
 .item {
   display: grid;
-  gap: 8px;
+  align-content: start;
+  gap: 6px;
   border-left-width: 4px;
 }
 
 .inventory-group {
   display: grid;
+  gap: 8px;
+}
+
+.inventory-item-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 8px;
 }
 
@@ -243,6 +263,14 @@ h2 {
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 8px;
+}
+
+.item .row-title {
+  margin-bottom: 0;
+}
+
+.item .row-title strong {
+  font-size: 14px;
 }
 
 .stats {
@@ -432,6 +460,11 @@ h2 {
   cursor: pointer;
 }
 
+.item .command-button {
+  margin-top: 4px;
+  padding: 8px 10px;
+}
+
 .command-button:hover {
   background: #254f77;
 }
@@ -495,5 +528,9 @@ h2 {
 
   .equipment-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .inventory-item-grid {
+    grid-template-columns: 1fr;
   }
 }

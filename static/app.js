@@ -5,8 +5,12 @@ const equipItemUrl = "/api/equip-item";
 
 const appState = {
   selectedCharacterKey: "",
-  selectedInventoryCharacterKey: ""
+  selectedInventoryCharacterKey: "",
+  memberPageIndex: 0,
+  openInventoryDetailIds: new Set()
 };
+
+const membersPerPage = 3;
 
 function formatSeconds(seconds) {
   return `${Math.floor(seconds)}s`;
@@ -18,9 +22,24 @@ function renderCharacters(characters) {
     return;
   }
 
+  const previousPageButton = document.querySelector("#previous-member-page-button");
+  const nextPageButton = document.querySelector("#next-member-page-button");
+  const pageDisplay = document.querySelector("#member-page-display");
+  const pageCount = Math.max(1, Math.ceil(characters.length / membersPerPage));
+
+  appState.memberPageIndex = Math.min(appState.memberPageIndex, pageCount - 1);
+  appState.memberPageIndex = Math.max(0, appState.memberPageIndex);
+
+  const pageStart = appState.memberPageIndex * membersPerPage;
+  const visibleCharacters = characters.slice(pageStart, pageStart + membersPerPage);
+
   list.innerHTML = "";
 
-  for (const character of characters) {
+  if (characters.length === 0) {
+    list.innerHTML = `<p class="muted">No guild members loaded.</p>`;
+  }
+
+  for (const character of visibleCharacters) {
     const row = document.createElement("article");
     row.className = "row";
     row.innerHTML = `
@@ -40,6 +59,24 @@ function renderCharacters(characters) {
     `;
     list.appendChild(row);
   }
+
+  if (!previousPageButton || !nextPageButton || !pageDisplay) {
+    return;
+  }
+
+  pageDisplay.textContent = `${appState.memberPageIndex + 1} / ${pageCount}`;
+  previousPageButton.disabled = appState.memberPageIndex === 0;
+  nextPageButton.disabled = appState.memberPageIndex >= pageCount - 1;
+
+  previousPageButton.onclick = () => {
+    appState.memberPageIndex = Math.max(0, appState.memberPageIndex - 1);
+    renderCharacters(characters);
+  };
+
+  nextPageButton.onclick = () => {
+    appState.memberPageIndex = Math.min(pageCount - 1, appState.memberPageIndex + 1);
+    renderCharacters(characters);
+  };
 }
 
 function renderCharacterSelect(characters) {
@@ -197,7 +234,7 @@ function renderInventory(inventory, characters = []) {
     group.innerHTML = `<h3>${formatSlotName(slot)}</h3>`;
 
     const groupList = document.createElement("div");
-    groupList.className = "stack compact";
+    groupList.className = "inventory-item-grid";
 
     for (const item of items) {
       groupList.appendChild(renderInventoryItem(item, selectedCharacter));
@@ -227,7 +264,7 @@ function renderInventoryItem(item, selectedCharacter) {
         ${renderItemDeltas(statDeltas)}
       </div>
       ${equipCheck.reason ? `<p class="equip-reason">${equipCheck.reason}</p>` : ""}
-      <details class="item-details">
+      <details class="item-details" ${appState.openInventoryDetailIds.has(item.instance_id) ? "open" : ""}>
         <summary>Details</summary>
         <div class="item-requirements">
           <span>Level ${item.level_requirement}</span>
@@ -259,6 +296,16 @@ function renderInventoryItem(item, selectedCharacter) {
     `;
   row.querySelector("button").onclick = () => {
     equipItem(item.instance_id);
+  };
+
+  const details = row.querySelector(".item-details");
+  details.ontoggle = () => {
+    if (details.open) {
+      appState.openInventoryDetailIds.add(item.instance_id);
+      return;
+    }
+
+    appState.openInventoryDetailIds.delete(item.instance_id);
   };
 
   return row;
@@ -491,8 +538,6 @@ function renderSelectedMemberStats(character) {
     return;
   }
 
-  console.log("renderSelectedMemberStats called with character:", character);
-
   if (!character) {
     panel.innerHTML = "";
     return;
@@ -671,6 +716,7 @@ async function loadTestFile() {
 
   appState.selectedCharacterKey = "";
   appState.selectedInventoryCharacterKey = "";
+  appState.openInventoryDetailIds.clear();
   await loadState();
 }
 
