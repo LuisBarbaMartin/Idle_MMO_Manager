@@ -3,8 +3,10 @@ const startQuestUrl = "/api/start-quest";
 const loadTestFileUrl = "/api/load-test-file";
 const equipItemUrl = "/api/equip-item";
 
-let selectedCharacterKey = "";
-let selectedInventoryCharacterKey = "";
+const appState = {
+  selectedCharacterKey: "",
+  selectedInventoryCharacterKey: ""
+};
 
 function formatSeconds(seconds) {
   return `${Math.floor(seconds)}s`;
@@ -46,7 +48,7 @@ function renderCharacterSelect(characters) {
     return;
   }
 
-  const previousValue = selectedCharacterKey;
+  const previousValue = appState.selectedCharacterKey;
   const availableCharacters = characters.filter((character) => !character.busy);
 
   select.innerHTML = "";
@@ -57,7 +59,7 @@ function renderCharacterSelect(characters) {
     option.value = "";
     select.appendChild(option);
     select.disabled = true;
-    selectedCharacterKey = "";
+    appState.selectedCharacterKey = "";
     return;
   }
 
@@ -75,13 +77,13 @@ function renderCharacterSelect(characters) {
     select.appendChild(option);
   }
 
-  if (!availableCharacters.some((character) => character.key === selectedCharacterKey)) {
-    selectedCharacterKey = availableCharacters[0].key;
-    select.value = selectedCharacterKey;
+  if (!availableCharacters.some((character) => character.key === appState.selectedCharacterKey)) {
+    appState.selectedCharacterKey = availableCharacters[0].key;
+    select.value = appState.selectedCharacterKey;
   }
 
   select.onchange = () => {
-    selectedCharacterKey = select.value;
+    appState.selectedCharacterKey = select.value;
   };
 }
 
@@ -91,7 +93,7 @@ function renderQuests(quests) {
     return;
   }
 
-  const hasSelectedCharacter = selectedCharacterKey !== "";
+  const hasSelectedCharacter = appState.selectedCharacterKey !== "";
   list.innerHTML = "";
 
   for (const quest of quests) {
@@ -176,7 +178,7 @@ function renderInventory(inventory, characters = []) {
   }
 
   const selectedCharacter = characters.find(
-    (character) => character.key === selectedInventoryCharacterKey
+    (character) => character.key === appState.selectedInventoryCharacterKey
   );
 
   list.innerHTML = "";
@@ -443,7 +445,7 @@ function renderEquipment(characters) {
   renderInventoryMemberSwitcher(characters);
 
   const charactersToRender = characters.filter(
-    (character) => character.key === selectedInventoryCharacterKey
+    (character) => character.key === appState.selectedInventoryCharacterKey
   );
 
   for (const character of charactersToRender) {
@@ -489,6 +491,8 @@ function renderSelectedMemberStats(character) {
     return;
   }
 
+  console.log("renderSelectedMemberStats called with character:", character);
+
   if (!character) {
     panel.innerHTML = "";
     return;
@@ -521,7 +525,7 @@ function renderInventoryMemberSwitcher(characters) {
   }
 
   if (characters.length === 0) {
-    selectedInventoryCharacterKey = "";
+    appState.selectedInventoryCharacterKey = "";
     nameDisplay.textContent = "No member";
     previousButton.disabled = true;
     nextButton.disabled = true;
@@ -530,7 +534,7 @@ function renderInventoryMemberSwitcher(characters) {
 
   const selectedIndex = Math.max(
     0,
-    characters.findIndex((character) => character.key === selectedInventoryCharacterKey)
+    characters.findIndex((character) => character.key === appState.selectedInventoryCharacterKey)
   );
   const selectedCharacter = characters[selectedIndex];
 
@@ -540,25 +544,25 @@ function renderInventoryMemberSwitcher(characters) {
 
   previousButton.onclick = () => {
     const previousIndex = (selectedIndex - 1 + characters.length) % characters.length;
-    selectedInventoryCharacterKey = characters[previousIndex].key;
+    appState.selectedInventoryCharacterKey = characters[previousIndex].key;
     loadState();
   };
 
   nextButton.onclick = () => {
     const nextIndex = (selectedIndex + 1) % characters.length;
-    selectedInventoryCharacterKey = characters[nextIndex].key;
+    appState.selectedInventoryCharacterKey = characters[nextIndex].key;
     loadState();
   };
 }
 
 function ensureSelectedInventoryCharacter(characters) {
   if (characters.length === 0) {
-    selectedInventoryCharacterKey = "";
+    appState.selectedInventoryCharacterKey = "";
     return;
   }
 
-  if (!characters.some((character) => character.key === selectedInventoryCharacterKey)) {
-    selectedInventoryCharacterKey = characters[0].key;
+  if (!characters.some((character) => character.key === appState.selectedInventoryCharacterKey)) {
+    appState.selectedInventoryCharacterKey = characters[0].key;
   }
 }
 
@@ -592,7 +596,7 @@ function renderEventLog(eventLog) {
 }
 
 async function startQuest(questKey) {
-  if (selectedCharacterKey === "") {
+  if (appState.selectedCharacterKey === "") {
     renderEventLog(["No available members can start a quest."]);
     return;
   }
@@ -604,7 +608,7 @@ async function startQuest(questKey) {
     },
     body: JSON.stringify({
       quest_key: questKey,
-      character_key: selectedCharacterKey
+      character_key: appState.selectedCharacterKey
     })
   });
 
@@ -618,7 +622,7 @@ async function startQuest(questKey) {
 }
 
 async function equipItem(instanceId) {
-  if (selectedInventoryCharacterKey === "") {
+  if (appState.selectedInventoryCharacterKey === "") {
     renderEventLog(["Select a guild member before equipping an item."]);
     return;
   }
@@ -629,7 +633,7 @@ async function equipItem(instanceId) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      character_key: selectedInventoryCharacterKey,
+      character_key: appState.selectedInventoryCharacterKey,
       instance_id: instanceId
     })
   });
@@ -665,34 +669,42 @@ async function loadTestFile() {
     return;
   }
 
-  selectedCharacterKey = "";
-  selectedInventoryCharacterKey = "";
+  appState.selectedCharacterKey = "";
+  appState.selectedInventoryCharacterKey = "";
   await loadState();
 }
 
 async function loadState() {
-  const response = await fetch(stateUrl);
-  const state = await response.json();
+  try {
+    const response = await fetch(stateUrl);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    const state = await response.json();
 
-  const guildName = document.querySelector("#guild-name");
-  const guildGold = document.querySelector("#guild-gold");
+    const guildName = document.querySelector("#guild-name");
+    const guildGold = document.querySelector("#guild-gold");
 
-  if (guildName) {
-    guildName.textContent = state.guild.name;
+    if (guildName) {
+      guildName.textContent = state.guild.name;
+    }
+
+    if (guildGold) {
+      guildGold.textContent = state.guild.gold;
+    }
+
+    renderCharacters(state.characters);
+    renderCharacterSelect(state.characters);
+    renderQuests(state.quests);
+    renderActiveQuests(state.guild.active_quests);
+    ensureSelectedInventoryCharacter(state.characters);
+    renderInventory(state.guild.inventory, state.characters);
+    renderEquipment(state.characters);
+    renderEventLog(state.event_log);
+  } catch (error) {
+    console.error("Failed to load state:", error);
+    renderEventLog(["Failed to load game state. Please refresh the page."]);
   }
-
-  if (guildGold) {
-    guildGold.textContent = state.guild.gold;
-  }
-
-  renderCharacters(state.characters);
-  renderCharacterSelect(state.characters);
-  renderQuests(state.quests);
-  renderActiveQuests(state.guild.active_quests);
-  ensureSelectedInventoryCharacter(state.characters);
-  renderInventory(state.guild.inventory, state.characters);
-  renderEquipment(state.characters);
-  renderEventLog(state.event_log);
 }
 
 const loadTestFileButton = document.querySelector("#load-test-file-button");

@@ -4,13 +4,23 @@ import time
 import functions
 
 # def run_stat_check(character_stats, check):
-    #gets character stats
 # def resolve_quest(character_stats, quest_data):
+# def build_event_result(character_stats, quest_data, results):
 # def start_event(character_stats, quest_data):
 # def tick_event(event_state, seconds=1):
 # def event_runner(character_stats, quest_data, tick_size=1):
+# def event_runner_realtime(character_stats, quest_data, tick_size=1):
+# def get_check_schedule(quest_data, started_at):
+# def start_active_quest(character_stats, quest_data, started_at=None):
+# def update_active_quest(active_quest, current_time=None):
+# def character_has_active_quest(guild, character):
+# def get_active_quest_progress(active_quest, current_time=None):
+# def start_guild_quest(guild, character, quest_data, started_at=None):
+# def update_guild_quests(guild, items, current_time=None, print_updates=True):
+# def run_active_quest(character, quest_data, guild, items, tick_size=1):
 # def apply_quest_rewards(event_result, character, guild, items):
 # def print_event_result(event_result):
+# def print_check_result(result):
 
 def run_stat_check(character_stats, check):
     stat_name = check["stat"]
