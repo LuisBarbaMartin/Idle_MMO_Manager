@@ -107,7 +107,11 @@ def update_game_state():
 
 
 def load_test_state():
-    global guild
+    global characters, items, quests, guild
+
+    characters = functions.load_characters()
+    items = functions.load_items()
+    quests = functions.load_quests()
 
     for character in characters.values():
         character.equipment = {

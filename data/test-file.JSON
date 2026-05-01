@@ -5,91 +5,145 @@
     "members": [
       "fighter_0001",
       "mage_0001",
-      "lancer_0001",
+      "mage_0002",
+      "theif_0001",
+      "cleric_0001",
+      "wizard_0001",
+      "ranger_0001",
       "paladin_0001"
     ],
     "inventory": [
       {
-        "instance_id": "owned_item_test_iron_sword",
-        "template_id": "item_0001_iron_sword"
+        "instance_id": "owned_item_test_ghostly_main_hand",
+        "template_id": "item_0000_ghostly_main_hand"
       },
       {
-        "instance_id": "owned_item_test_training_helm",
-        "template_id": "item_0003_training_helm"
+        "instance_id": "owned_item_test_ghostly_off_hand",
+        "template_id": "item_0001_ghostly_off_hand"
       },
       {
-        "instance_id": "owned_item_test_fire_staff",
-        "template_id": "item_0002_fire_staff"
+        "instance_id": "owned_item_test_ghostly_helm",
+        "template_id": "item_0002_ghostly_helm"
       },
       {
-        "instance_id": "owned_item_test_mage_cowl_equipped",
-        "template_id": "item_0008_linen_cowl"
+        "instance_id": "owned_item_test_ghostly_chestpiece",
+        "template_id": "item_0003_ghostly_chestpiece"
       },
       {
-        "instance_id": "owned_item_test_steel_sword",
-        "template_id": "item_0004_steel_sword"
+        "instance_id": "owned_item_test_ghostly_pantaloons",
+        "template_id": "item_0004_ghostly_pantaloons"
       },
       {
-        "instance_id": "owned_item_test_cracked_dagger",
-        "template_id": "item_0005_cracked_dagger"
+        "instance_id": "owned_item_test_ghostly_boots",
+        "template_id": "item_0005_ghostly_boots"
       },
       {
-        "instance_id": "owned_item_test_apprentice_wand",
-        "template_id": "item_0006_apprentice_wand"
+        "instance_id": "owned_item_test_promised_forever",
+        "template_id": "item_0006_promised_forever"
       },
       {
-        "instance_id": "owned_item_test_knight_helm",
-        "template_id": "item_0007_knight_helm"
+        "instance_id": "owned_item_test_ghostly_main_hand_2",
+        "template_id": "item_0000_ghostly_main_hand"
       },
       {
-        "instance_id": "owned_item_test_linen_cowl",
-        "template_id": "item_0008_linen_cowl"
+        "instance_id": "owned_item_test_ghostly_off_hand_2",
+        "template_id": "item_0001_ghostly_off_hand"
       },
       {
-        "instance_id": "owned_item_test_squire_chest",
-        "template_id": "item_0009_squire_chestplate"
+        "instance_id": "owned_item_test_ghostly_helm_2",
+        "template_id": "item_0002_ghostly_helm"
       },
       {
-        "instance_id": "owned_item_test_mender_robes",
-        "template_id": "item_0010_mender_robes"
+        "instance_id": "owned_item_test_ghostly_chestpiece_2",
+        "template_id": "item_0003_ghostly_chestpiece"
       },
       {
-        "instance_id": "owned_item_test_swift_boots",
-        "template_id": "item_0011_swift_boots"
+        "instance_id": "owned_item_test_ghostly_pantaloons_2",
+        "template_id": "item_0004_ghostly_pantaloons"
       },
       {
-        "instance_id": "owned_item_test_anchor_boots",
-        "template_id": "item_0012_anchor_boots"
+        "instance_id": "owned_item_test_ghostly_boots_2",
+        "template_id": "item_0005_ghostly_boots"
       },
       {
-        "instance_id": "owned_item_test_focus_ring",
-        "template_id": "item_0013_ring_of_focus"
+        "instance_id": "owned_item_test_promised_forever_2",
+        "template_id": "item_0006_promised_forever"
       },
       {
-        "instance_id": "owned_item_test_sunlit_amulet",
-        "template_id": "item_0014_sunlit_amulet"
+        "instance_id": "owned_item_test_ghostly_main_hand_3",
+        "template_id": "item_0000_ghostly_main_hand"
       },
       {
-        "instance_id": "owned_item_test_veteran_halberd",
-        "template_id": "item_0015_veteran_halberd"
+        "instance_id": "owned_item_test_ghostly_off_hand_3",
+        "template_id": "item_0001_ghostly_off_hand"
       },
       {
-        "instance_id": "owned_item_test_odd_relic",
-        "template_id": "item_0016_odd_relic"
+        "instance_id": "owned_item_test_ghostly_helm_3",
+        "template_id": "item_0002_ghostly_helm"
       },
       {
-        "instance_id": "owned_item_test_ghost_helm",
-        "template_id": "item_0000_blank"
+        "instance_id": "owned_item_test_ghostly_chestpiece_3",
+        "template_id": "item_0003_ghostly_chestpiece"
+      },
+      {
+        "instance_id": "owned_item_test_ghostly_pantaloons_3",
+        "template_id": "item_0004_ghostly_pantaloons"
+      },
+      {
+        "instance_id": "owned_item_test_ghostly_boots_3",
+        "template_id": "item_0005_ghostly_boots"
+      },
+      {
+        "instance_id": "owned_item_test_promised_forever_3",
+        "template_id": "item_0006_promised_forever"
+      },
+      {
+        "instance_id": "owned_item_test_ghostly_main_hand_4",
+        "template_id": "item_0000_ghostly_main_hand"
+      },
+      {
+        "instance_id": "owned_item_test_ghostly_off_hand_4",
+        "template_id": "item_0001_ghostly_off_hand"
+      },
+      {
+        "instance_id": "owned_item_test_ghostly_helm_4",
+        "template_id": "item_0002_ghostly_helm"
+      },
+      {
+        "instance_id": "owned_item_test_ghostly_chestpiece_4",
+        "template_id": "item_0003_ghostly_chestpiece"
+      },
+      {
+        "instance_id": "owned_item_test_ghostly_pantaloons_4",
+        "template_id": "item_0004_ghostly_pantaloons"
+      },
+      {
+        "instance_id": "owned_item_test_ghostly_boots_4",
+        "template_id": "item_0005_ghostly_boots"
+      },
+      {
+        "instance_id": "owned_item_test_promised_forever_4",
+        "template_id": "item_0006_promised_forever"
       }
     ],
     "equipped": {
       "fighter_0001": [
-        "owned_item_test_iron_sword",
-        "owned_item_test_training_helm"
+        "owned_item_test_ghostly_main_hand",
+        "owned_item_test_ghostly_off_hand",
+        "owned_item_test_ghostly_helm",
+        "owned_item_test_ghostly_chestpiece",
+        "owned_item_test_ghostly_pantaloons",
+        "owned_item_test_ghostly_boots",
+        "owned_item_test_promised_forever"
       ],
       "mage_0001": [
-        "owned_item_test_fire_staff",
-        "owned_item_test_mage_cowl_equipped"
+        "owned_item_test_ghostly_main_hand",
+        "owned_item_test_ghostly_off_hand",
+        "owned_item_test_ghostly_helm",
+        "owned_item_test_ghostly_chestpiece",
+        "owned_item_test_ghostly_pantaloons",
+        "owned_item_test_ghostly_boots",
+        "owned_item_test_promised_forever"
       ]
     }
   }

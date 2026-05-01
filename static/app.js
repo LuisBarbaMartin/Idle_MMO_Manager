@@ -644,9 +644,27 @@ async function equipItem(instanceId) {
 }
 
 async function loadTestFile() {
-  await fetch(loadTestFileUrl, {
+  const response = await fetch(loadTestFileUrl, {
     method: "POST"
   });
+
+  if (!response.ok) {
+    let errorMessage = "Failed to load test file.";
+
+    try {
+      const error = await response.json();
+      errorMessage = error.message || errorMessage;
+    } catch {
+      const text = await response.text();
+      if (text) {
+        errorMessage = text;
+      }
+    }
+
+    renderEventLog([errorMessage]);
+    return;
+  }
+
   selectedCharacterKey = "";
   selectedInventoryCharacterKey = "";
   await loadState();
