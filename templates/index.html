@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% set active_page = "dashboard" %}
+
+{% block title %}Dashboard - Idle MMO Manager{% endblock %}
+
+{% block content %}
+  <section class="grid">
+    <section class="panel action-panel">
+      <div class="panel-heading">
+        <h2>Testing</h2>
+      </div>
+      <p class="muted">Reload the saved test state for the site.</p>
+      <button id="load-test-file-button" class="command-button" type="button">
+        Load Test File
+      </button>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <h2>Members</h2>
+      </div>
+      <div id="character-list" class="stack"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <h2>Inventory</h2>
+      </div>
+      <div id="inventory-list" class="stack compact"></div>
+    </section>
+
+    <section class="panel active-panel">
+      <div class="panel-heading">
+        <h2>Active Quests</h2>
+      </div>
+      <div id="active-quest-list" class="stack"></div>
+    </section>
+
+    <section class="panel log-panel">
+      <div class="panel-heading">
+        <h2>Event Log</h2>
+      </div>
+      <div id="event-log" class="stack compact"></div>
+    </section>
+  </section>
+{% endblock %}

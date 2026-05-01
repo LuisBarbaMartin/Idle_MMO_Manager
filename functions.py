@@ -1,6 +1,8 @@
 import json
+import copy
+import uuid
 
-from classes import Equipment, character
+from classes import Equipment, Guild, character
 
 
 def load_json_file(file_path):
@@ -26,6 +28,75 @@ def load_characters(file_path="data/characters.JSON"):
 
 def load_quests(file_path="data/quests.JSON"):
     return load_json_file(file_path)
+
+
+def create_owned_item(template_id, items, instance_id=None):
+    item = copy.deepcopy(items[template_id])
+    item.template_id = template_id
+    item.instance_id = instance_id if instance_id is not None else f"owned_item_{uuid.uuid4().hex}"
+    return item
+
+
+def find_inventory_item_by_instance_id(guild, instance_id):
+    for item in guild.inventory["items"]:
+        if getattr(item, "instance_id", None) == instance_id:
+            return item
+
+    return None
+
+
+def can_equip_item(character, item):
+    if item.slot not in character.equipment:
+        return False, f"{item.name} cannot be equipped in slot: {item.slot}."
+
+    if character.level < item.level_requirement:
+        return False, f"{character.name} must be level {item.level_requirement} to equip {item.name}."
+
+    if item.job_restriction not in (None, "none", character.job.lower(), character.job):
+        return False, f"{character.name} cannot equip {item.name}. Requires {item.job_restriction}."
+
+    return True, ""
+
+
+def load_guild_state(file_path, characters, items):
+    state_data = load_json_file(file_path)
+    guild_data = state_data["guild"]
+
+    guild_members = [
+        characters[character_key]
+        for character_key in guild_data.get("members", [])
+    ]
+
+    inventory_items = []
+    for item_data in guild_data.get("inventory", []):
+        item = create_owned_item(
+            item_data["template_id"],
+            items,
+            instance_id=item_data["instance_id"]
+        )
+        inventory_items.append(item)
+
+    guild = Guild(
+        name=guild_data["name"],
+        members=guild_members,
+        inventory={
+            "gold": guild_data.get("gold", 0),
+            "items": inventory_items
+        }
+    )
+
+    for character_key, equipped_instance_ids in guild_data.get("equipped", {}).items():
+        equipped_character = characters[character_key]
+
+        for instance_id in equipped_instance_ids:
+            item_to_equip = find_inventory_item_by_instance_id(guild, instance_id)
+
+            if item_to_equip is not None:
+                equip_item(equipped_character, guild, item_to_equip)
+
+        rest(equipped_character)
+
+    return guild
 
 
 #TODO - Tick Rate will need to be remade once the event_handler() is implemented. This is just a placeholder for testing purposes.

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% set active_page = "quests" %}
+
+{% block title %}Quests - Idle MMO Manager{% endblock %}
+
+{% block content %}
+  <section class="grid quest-screen">
+    <section class="panel">
+      <div class="panel-heading">
+        <h2>Available Quests</h2>
+        <label class="select-control" for="character-select">
+          <span>Assign</span>
+          <select id="character-select"></select>
+        </label>
+      </div>
+      <div id="quest-list" class="stack"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <h2>Members</h2>
+      </div>
+      <div id="character-list" class="stack"></div>
+    </section>
+
+    <section class="panel active-panel">
+      <div class="panel-heading">
+        <h2>Active Quests</h2>
+      </div>
+      <div id="active-quest-list" class="stack"></div>
+    </section>
+
+    <section class="panel log-panel">
+      <div class="panel-heading">
+        <h2>Event Log</h2>
+      </div>
+      <div id="event-log" class="stack compact"></div>
+    </section>
+  </section>
+{% endblock %}

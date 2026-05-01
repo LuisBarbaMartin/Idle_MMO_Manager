@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% set active_page = "inventory" %}
+
+{% block title %}Inventory - Idle MMO Manager{% endblock %}
+
+{% block content %}
+  <section class="grid inventory-screen">
+    <section class="panel">
+      <div class="panel-heading">
+        <h2>Guild Inventory</h2>
+      </div>
+      <div id="inventory-list" class="stack"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <h2>Equipment</h2>
+        <div class="member-switcher">
+          <button id="previous-member-button" type="button" aria-label="Previous member">&lt;</button>
+          <strong id="selected-member-name">No member</strong>
+          <button id="next-member-button" type="button" aria-label="Next member">&gt;</button>
+        </div>
+      </div>
+      <div id="equipment-list" class="stack"></div>
+      <div id="selected-member-stats" class="member-stats-panel"></div>
+    </section>
+
+    <section class="panel log-panel">
+      <div class="panel-heading">
+        <h2>Event Log</h2>
+      </div>
+      <div id="event-log" class="stack compact"></div>
+    </section>
+  </section>
+{% endblock %}

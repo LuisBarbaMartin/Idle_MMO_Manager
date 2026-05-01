@@ -1,6 +1,7 @@
 import classes
 import event_runner
 import functions
+import time
 
 
 characters = functions.load_characters()
@@ -33,12 +34,15 @@ for item in test_guild.inventory["items"]:
 print(f"Guild Gold: {test_guild.inventory['gold']}")
 
 print()
-quest_result = event_runner.event_runner(
-    fighter.get_stats(),
-    quests["quest_0001_locked_cellar"]
+event_runner.start_guild_quest(
+    guild=test_guild,
+    character=fighter,
+    quest_data=quests["quest_0001_locked_cellar"]
 )
-event_runner.print_event_result(quest_result)
-event_runner.apply_quest_rewards(quest_result, fighter, test_guild, items)
+
+while test_guild.active_quests:
+    time.sleep(1)
+    event_runner.update_guild_quests(test_guild, items)
 
 print()
 print("After Quest Rewards:")

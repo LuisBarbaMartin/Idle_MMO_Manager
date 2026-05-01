@@ -11,11 +11,31 @@
 
   "fighter_0001": {
     "name": "Brakka",
-    "job" : "Fighter",
+    "job": "Fighter",
     "base_strength": 12,
     "base_intelligence": 3,
     "base_agility": 6,
     "base_wisdom": 4,
+    "level": 1
+  },
+
+  "lancer_0001": {
+    "name": "Adrie",
+    "job": "Lancer",
+    "base_strength": 8,
+    "base_intelligence": 3,
+    "base_agility": 13,
+    "base_wisdom": 5,
+    "level": 1
+  },
+
+  "paladin_0001": {
+    "name": "CovaDax",
+    "job": "Paladin",
+    "base_strength": 10,
+    "base_intelligence": 4,
+    "base_agility": 4,
+    "base_wisdom": 11,
     "level": 1
   }
 }

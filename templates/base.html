@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Idle MMO Manager{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <h1>Idle MMO Manager</h1>
+          <p id="guild-name">Loading guild...</p>
+        </div>
+        <nav class="nav-tabs" aria-label="Primary navigation">
+          <a href="/" class="{% if active_page == 'dashboard' %}active{% endif %}">Dashboard</a>
+          <a href="/quests" class="{% if active_page == 'quests' %}active{% endif %}">Quests</a>
+          <a href="/inventory" class="{% if active_page == 'inventory' %}active{% endif %}">Inventory</a>
+        </nav>
+        <div class="gold-readout">
+          <span>Gold</span>
+          <strong id="guild-gold">0</strong>
+        </div>
+      </header>
+
+      {% block content %}{% endblock %}
+    </main>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>

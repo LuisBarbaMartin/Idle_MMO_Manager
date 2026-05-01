@@ -1,0 +1,96 @@
+{
+  "guild": {
+    "name": "Inventory Lab Guild",
+    "gold": 1250,
+    "members": [
+      "fighter_0001",
+      "mage_0001",
+      "lancer_0001",
+      "paladin_0001"
+    ],
+    "inventory": [
+      {
+        "instance_id": "owned_item_test_iron_sword",
+        "template_id": "item_0001_iron_sword"
+      },
+      {
+        "instance_id": "owned_item_test_training_helm",
+        "template_id": "item_0003_training_helm"
+      },
+      {
+        "instance_id": "owned_item_test_fire_staff",
+        "template_id": "item_0002_fire_staff"
+      },
+      {
+        "instance_id": "owned_item_test_mage_cowl_equipped",
+        "template_id": "item_0008_linen_cowl"
+      },
+      {
+        "instance_id": "owned_item_test_steel_sword",
+        "template_id": "item_0004_steel_sword"
+      },
+      {
+        "instance_id": "owned_item_test_cracked_dagger",
+        "template_id": "item_0005_cracked_dagger"
+      },
+      {
+        "instance_id": "owned_item_test_apprentice_wand",
+        "template_id": "item_0006_apprentice_wand"
+      },
+      {
+        "instance_id": "owned_item_test_knight_helm",
+        "template_id": "item_0007_knight_helm"
+      },
+      {
+        "instance_id": "owned_item_test_linen_cowl",
+        "template_id": "item_0008_linen_cowl"
+      },
+      {
+        "instance_id": "owned_item_test_squire_chest",
+        "template_id": "item_0009_squire_chestplate"
+      },
+      {
+        "instance_id": "owned_item_test_mender_robes",
+        "template_id": "item_0010_mender_robes"
+      },
+      {
+        "instance_id": "owned_item_test_swift_boots",
+        "template_id": "item_0011_swift_boots"
+      },
+      {
+        "instance_id": "owned_item_test_anchor_boots",
+        "template_id": "item_0012_anchor_boots"
+      },
+      {
+        "instance_id": "owned_item_test_focus_ring",
+        "template_id": "item_0013_ring_of_focus"
+      },
+      {
+        "instance_id": "owned_item_test_sunlit_amulet",
+        "template_id": "item_0014_sunlit_amulet"
+      },
+      {
+        "instance_id": "owned_item_test_veteran_halberd",
+        "template_id": "item_0015_veteran_halberd"
+      },
+      {
+        "instance_id": "owned_item_test_odd_relic",
+        "template_id": "item_0016_odd_relic"
+      },
+      {
+        "instance_id": "owned_item_test_ghost_helm",
+        "template_id": "item_0000_blank"
+      }
+    ],
+    "equipped": {
+      "fighter_0001": [
+        "owned_item_test_iron_sword",
+        "owned_item_test_training_helm"
+      ],
+      "mage_0001": [
+        "owned_item_test_fire_staff",
+        "owned_item_test_mage_cowl_equipped"
+      ]
+    }
+  }
+}

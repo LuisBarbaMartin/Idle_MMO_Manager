@@ -149,6 +149,7 @@ class character:
             "name": self.name,
             "job": self.job,
             "level": self.level,
+            "experience": self.experience,
             "health": self.health,
             "max_health": self.max_health,
             "mana": self.mana,
@@ -198,6 +199,7 @@ class Equipment:
             name=data["name"],
             slot=data["slot"],
             rarity=data["rarity"],
+            level_requirement=data.get("level_requirement", 1),
             hands=data.get("hands", 0),
             strength_bonus=data.get("strength_bonus", 0),
             intelligence_bonus=data.get("intelligence_bonus", 0),
@@ -220,7 +222,8 @@ class Equipment:
                 #ignore, not a weapon
 
 class Guild:
-    def __init__(self, name, members=None, inventory=None):
+    def __init__(self, name, members=None, inventory=None, active_quests=None):
         self.name = name
         self.members = members if members is not None else []
         self.inventory = inventory if inventory is not None else {"gold": 0, "items": []}
+        self.active_quests = active_quests if active_quests is not None else []
